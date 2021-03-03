@@ -1,0 +1,86 @@
+/* This is the sql file for creating my 
+tables for my Modern Database Project
+
+I will use an excel sheet to populate the tables.
+It should be located within the file.
+
+Christopher Williams*/
+
+DROP TABLE IF EXISTS PokeMoves;
+DROP TABLE IF EXISTS PokeLocations;
+DROP TABLE IF EXISTS PokeTrainers;
+DROP TABLE IF EXISTS Pokemon;
+DROP TABLE IF EXISTS Trainers;
+DROP TABLE IF EXISTS Moves;
+DROP TABLE IF EXISTS Types;
+DROP TABLE IF EXISTS Locations;
+
+CREATE TABLE Pokemon
+(
+	pokemon_id INT,
+	pokemon_name VARCHAR(20),
+	pokemon_typeOne VARCHAR(10),
+	pokemon_typeTwo VARCHAR(10),
+	pokemon_hp INT,
+	pokemon_atk INT,
+	pokemon_def INT,
+	pokemon_spAtk INT,
+	pokemon_spDef INT,
+	pokemon_speed INT,
+	pokemon_total INT,
+	PRIMARY KEY(pokemon_id)
+);
+
+CREATE TABLE Locations
+(
+	location_id INT AUTO_INCREMENT PRIMARY KEY,
+	location_name VARCHAR(30)
+);
+
+CREATE TABLE Trainers
+(
+	trainer_id INT AUTO_INCREMENT PRIMARY KEY,
+	trainer_name VARCHAR(50),
+	location_id INT,
+	FOREIGN KEY(location_id) REFERENCES Locations(location_id)
+);
+
+CREATE TABLE Moves
+(
+	move_id INT AUTO_INCREMENT PRIMARY KEY,
+	move_name VARCHAR(12),
+	move_type VARCHAR(10),
+	move_pp INT,
+	move_power INT,
+	move_accuracy INT,
+	move_desc VARCHAR(120)
+);
+
+CREATE TABLE PokeMoves
+(
+	pm_id INT AUTO_INCREMENT PRIMARY KEY,
+	move_id INT,
+	pokemon_id INT,
+	FOREIGN KEY (move_id) REFERENCES Moves(move_id),
+	FOREIGN KEY (pokemon_id) REFERENCES Pokemon(pokemon_id)
+);
+
+CREATE TABLE PokeTrainers
+(
+	pt_id INT AUTO_INCREMENT PRIMARY KEY,
+	trainer_id INT,
+	pokemon_id INT,
+	FOREIGN KEY (trainer_id) REFERENCES Trainers(trainer_id),
+	FOREIGN KEY (pokemon_id) REFERENCES Pokemon(pokemon_id)
+);
+
+CREATE TABLE PokeLocations
+(
+	pl_id INT AUTO_INCREMENT PRIMARY KEY,
+	location_id INT,
+	pokemon_id INT,
+	FOREIGN KEY (location_id) REFERENCES Locations(location_id),
+	FOREIGN KEY (pokemon_id) REFERENCES Pokemon(pokemon_id)
+);
+
+/*End of the script. Please run the sql file*/
